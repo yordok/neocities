@@ -1,0 +1,28 @@
+name: Deploy jkarls.neocities.org
+
+# only run on changes to main
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency: # prevent concurrent deploys doing strange things
+  group: deploy-to-neocities
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Deploy to neocities
+      uses: bcomnes/deploy-to-neocities@v1
+      with:
+        api_token: ${{ secrets.api_key }}
+        cleanup: false
+        dist_dir: .
