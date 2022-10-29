@@ -25,4 +25,4 @@ jobs:
       with:
         api_token: ${{ secrets.api_key }}
         cleanup: false
-        dist_dir: .
+        dist_dir: public
